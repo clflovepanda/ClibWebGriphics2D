@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ClibWebGriphics2D Demo</title>
+    <script src="ClibWebGriphics2D.js"></script>
+    <script>
+        window.onload = function() {
+            var painter = new ClibPainter("test");
+            painter.moveTo(10, 10);
+            painter.drawLine(500, 150);
+            painter.drawDashLine(10, 50);
+            painter.drawStrokeRect(100, 300, 100, 50);
+            painter.drawCircile(100, 100, 20, 0, 2 * Math.PI, true, true, "red", "red");
+            painter.drawCircile(100, 200, 20, 0, 2 * Math.PI, true);
+            painter.stroke();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="test" width="800px" height="600px" style="border: 1px solid"></canvas>
+</body>
+</html>
