@@ -47,7 +47,8 @@ function ClibWebGriphics2D(canvasId) {
         /**
          * 画圆，传入圆心
          */
-        drawCircile : function(x, y, r, start, stop, counterclockwise) {
+        drawCircile : function(x, y, r, start, stop, counterclockwise, style) {
+            this.analysisStyle(style);
             this.ctx.beginPath();
             this.ctx.arc(x, y, r, start, stop, counterclockwise);
             this.ctx.closePath();

@@ -7,13 +7,14 @@
     <script>
         window.onload = function() {
             var style = new Object();
+            style.borderColor = "red";
 
             var painter = new ClibWebGriphics2D("test");
             painter.moveTo(10, 10);
             painter.drawLine(500, 150);
             painter.drawDashLine(10, 50);
             painter.drawStrokeRect(100, 300, 100, 50);
-            painter.drawCircile(100, 100, 20, 0, 2 * Math.PI, true);
+            painter.drawCircile(100, 100, 20, 0, 2 * Math.PI, true, style);
             painter.drawCircile(100, 200, 20, 0, 2 * Math.PI, true);
             painter.stroke();
         }
