@@ -6,16 +6,28 @@ function ClibPainter(canvasId) {
         ctx : document.getElementById(canvasId).getContext("2d"),
         nowX : 0,
         nowY : 0,
+        /**
+         * 移动当前焦点
+         * @param x
+         * @param y
+         */
         moveTo : function(x, y) {
             this.ctx.moveTo(x, y);
             this.nowX = x;
             this.nowY = y;
         },
+        /**
+         * 画线，从当前焦点画到传入点
+         */
         drawLine : function(x, y) {
             this.ctx.lineTo(x, y);
             this.nowX = x;
             this.nowY = y;
+            this.ctx.stroke();
         },
+        /**
+         * 画虚线，从当前点到传入点
+         */
         drawDashLine : function(x, y, dashLength) {
             var dashLen = dashLength === undefined ? 5 : dashLength,
                 xpos = x - this.nowX, //得到横向的宽度;
@@ -30,38 +42,70 @@ function ClibPainter(canvasId) {
                     this.ctx.lineTo(this.nowX + (xpos / numDashes) * i, this.nowY + (ypos / numDashes) * i);
                 }
             }
-        },
-
-        drawCircile : function(x, y, r, start, stop, counterclockwise, fill, color, borderColor) {
             this.ctx.stroke();
+        },
+        /**
+         * 画圆，传入圆心
+         */
+        drawCircile : function(x, y, r, start, stop, counterclockwise) {
             this.ctx.beginPath();
             this.ctx.arc(x, y, r, start, stop, counterclockwise);
-            if (fill) {
-                this.ctx.strokeStyle = borderColor;
-                this.ctx.fillStyle = color;
-                this.ctx.fill();
-            }
             this.ctx.closePath();
+            this.ctx.stroke();
             this.styleInit();
         },
-
+        drawFillCircle : function(x, y, r, start, stop, counterclockwise, style) {
+            this.ctx.analysisStyle(style);
+            this.ctx.beginPath();
+            this.ctx.arc(x, y, r, start, stop, counterclockwise);
+            this.ctx.fill();
+            this.ctx.closePath();
+            this.ctx.stroke();
+            this.styleInit();
+        },
+        /**
+         * 画矩形
+         */
         drawStrokeRect : function(x, y, width, height, style) {
+            this.ctx.analysisStyle(style);
             this.ctx.strokeRect(x, y, width, height);
+            this.ctx.stroke();
             this.styleInit();
         },
-
+        /**
+         * 画填充矩形
+         */
         drawFillRect : function(x, y, width, height, style) {
+            this.ctx.analysisStyle(style);
             this.ctx.fillRect(x, y, width, height);
+            this.ctx.stroke();
             this.styleInit();
         },
-
+        /**
+         * 内容渲染
+         */
         stroke : function () {
             this.ctx.stroke();
         },
-
+        /**
+         * 设置样式
+         */
+        analysisStyle : function(style) {
+            if (style.borderColor) {
+                this.ctx.strokeStyle = style.borderColor;
+            }
+            if (style.fillStyle) {
+                this.ctx.fillStyle = style.fillStyle;
+            }
+        },
+        /**
+         * 初始化样式
+         */
         styleInit : function() {
-            this.ctx.strokeStyle = "#000";
-            this.ctx.fillStyle = "#000";
+            var style;
+            style.borderColor = "#000";
+            style.fillStyle = "#000";
+            this.analysisStyle(style);
         }
 
     }
