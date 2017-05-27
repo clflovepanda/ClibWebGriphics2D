@@ -1,15 +1,13 @@
 /**
  * Created by changlifeng on 17/5/27.
  */
-function ClibWebGriphics2D(canvasId) {
+function ClibWebPainter(canvasId) {
     return {
         ctx : document.getElementById(canvasId).getContext("2d"),
         nowX : 0,
         nowY : 0,
         /**
          * 移动当前焦点
-         * @param x
-         * @param y
          */
         moveTo : function(x, y) {
             this.ctx.moveTo(x, y);
