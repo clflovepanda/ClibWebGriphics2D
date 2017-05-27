@@ -1,7 +1,7 @@
 /**
  * Created by changlifeng on 17/5/27.
  */
-function ClibPainter(canvasId) {
+function ClibWebGriphics2D(canvasId) {
     return {
         ctx : document.getElementById(canvasId).getContext("2d"),
         nowX : 0,
@@ -54,8 +54,11 @@ function ClibPainter(canvasId) {
             this.ctx.stroke();
             this.styleInit();
         },
+        /**
+         * 画填充圆
+         */
         drawFillCircle : function(x, y, r, start, stop, counterclockwise, style) {
-            this.ctx.analysisStyle(style);
+            this.analysisStyle(style);
             this.ctx.beginPath();
             this.ctx.arc(x, y, r, start, stop, counterclockwise);
             this.ctx.fill();
@@ -67,7 +70,7 @@ function ClibPainter(canvasId) {
          * 画矩形
          */
         drawStrokeRect : function(x, y, width, height, style) {
-            this.ctx.analysisStyle(style);
+            this.analysisStyle(style);
             this.ctx.strokeRect(x, y, width, height);
             this.ctx.stroke();
             this.styleInit();
@@ -76,7 +79,7 @@ function ClibPainter(canvasId) {
          * 画填充矩形
          */
         drawFillRect : function(x, y, width, height, style) {
-            this.ctx.analysisStyle(style);
+            this.analysisStyle(style);
             this.ctx.fillRect(x, y, width, height);
             this.ctx.stroke();
             this.styleInit();
@@ -91,18 +94,20 @@ function ClibPainter(canvasId) {
          * 设置样式
          */
         analysisStyle : function(style) {
-            if (style.borderColor) {
-                this.ctx.strokeStyle = style.borderColor;
-            }
-            if (style.fillStyle) {
-                this.ctx.fillStyle = style.fillStyle;
+            if (style) {
+                if (style.borderColor) {
+                    this.ctx.strokeStyle = style.borderColor;
+                }
+                if (style.fillStyle) {
+                    this.ctx.fillStyle = style.fillStyle;
+                }
             }
         },
         /**
          * 初始化样式
          */
         styleInit : function() {
-            var style;
+            var style = new Object();
             style.borderColor = "#000";
             style.fillStyle = "#000";
             this.analysisStyle(style);
