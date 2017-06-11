@@ -167,7 +167,7 @@ function ClibWebPainter(canvasId) {
             this.analysisStyle(style);
         },
 
-        paintGraph : function (graph) {
+        drawGraph : function (graph) {
             var temp = graph.vector();
             for (var i = 0 ; i < temp.length ; i ++) {
                 if (temp[i].type == "line") {
