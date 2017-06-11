@@ -29,11 +29,19 @@ function ClibArrow(beginX, beginY, endX, endY, style){
         var defaultABC = 45;
         var A = Math.atan2(Math.abs(endY - beginY), Math.abs(endX - beginX)) / Math.PI * 180;
         var CBK = 90 - A - defaultABC;
-        var lenX = 20 * Math.cos(CBK);
-        var lenY = 20 * Math.sin(CBK);
+        var DBL = 180 - 2 * defaultABC - CBK;
+        var lenX = 20 * Math.sin(CBK);
+        var lenY = 20 * Math.cos(CBK);
         var CX = endX - lenX;
         var CY = endY - lenY;
-        return [{BX:beginX, BY:beginY, EX:endX, EY:endY,type:"line"}, {BX:endX, BY:endY, EX:CX, EY:CY,type:"line"}];
+        var lenDL = 20 * Math.sin(DBL * Math.PI / 180);
+        var lenBL = 20 * Math.cos(DBL * Math.PI / 180);
+        var DX = endX - lenDL;
+        var DY = endY + lenBL;
+        return [
+            {BX:beginX, BY:beginY, EX:endX, EY:endY, type:"line"},
+            {BX:endX, BY:endY, EX:CX, EY:CY, type:"line"},
+            {BX:endX, BY:endY, EX:DX, EY:DY, type:"line"}];
     }
 }
 (function(){
