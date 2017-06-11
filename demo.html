@@ -21,9 +21,22 @@
 
             var RenderingEngine = new ClibWebGriphics2DRenderingEngine("test");
 
-            var arrow = new ClibArrow(10, 10, 100, 100);
+            var arrow1 = new ClibArrow(10, 10, 100, 90);
+            var arrow2 = new ClibArrow(110, 110, 510, 20);
+            var arrow3 = new ClibArrow(100, 290, 30, 210);
+            var arrow4 = new ClibArrow(400, 80, 200, 160);
 
-            RenderingEngine.painter.paintGraph(arrow);
+            var arrow5 = new ClibArrow(410, 80, 410, 160);
+
+            var arrow6 = new ClibArrow(430, 100, 600, 100);
+
+            RenderingEngine.painter.paintGraph(arrow1);
+            RenderingEngine.painter.paintGraph(arrow2);
+            RenderingEngine.painter.paintGraph(arrow3);
+            RenderingEngine.painter.paintGraph(arrow4);
+
+            RenderingEngine.painter.paintGraph(arrow5);
+            RenderingEngine.painter.paintGraph(arrow6);
 
         }
     </script>

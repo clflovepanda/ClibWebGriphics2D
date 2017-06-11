@@ -8,9 +8,6 @@ function ClibBaseGraph (name) {
     this.baseY = 0;
     this.vector = function(){};
 }
-//
-//ClibBaseGraph.prototype.get = function() {
-//};
 
 function ClibLine(){
     ClibBaseGraph.call("line");
@@ -26,20 +23,13 @@ function ClibArrow(beginX, beginY, endX, endY, style){
     ClibBaseGraph.call("arrow");
     this.name = "arrow";
     this.vector = function() {
-        var defaultABC = 45;
-        var A = Math.atan2(Math.abs(endY - beginY), Math.abs(endX - beginX)) / Math.PI * 180;
-        var CBK = 90 - A - defaultABC;
-        var DBL = 180 - 2 * defaultABC - CBK;
-        var lenX = 20 * Math.sin(CBK * Math.PI / 180);
-        var lenY = 20 * Math.cos(CBK * Math.PI / 180);
-        var CX = endX - lenX;
-        var CY = endY - lenY;
-        var lenDL = 20 * Math.sin(DBL * Math.PI / 180);
-        var lenBL = 20 * Math.cos(DBL * Math.PI / 180);
-        var DX = endX - lenDL;
-        var DY = endY + lenBL;
-        return [
-            {BX:beginX, BY:beginY, EX:endX, EY:endY, type:"line"},
+        var defaultABC = 45, defaultLen = 20;
+        var A = Math.atan2(Math.abs(endY - beginY), Math.abs(endX - beginX)) / Math.PI * 180;//夹角A
+        var CX = endX + (endX > beginX ? -1 : 1) * defaultLen * Math.sin((90 - A - defaultABC) * Math.PI / 180);
+        var CY = endY + (endY > beginY ? -1 : 1) * defaultLen * Math.cos((90 - A - defaultABC) * Math.PI / 180);
+        var DX = endX + (endX > beginX ? -1 : 1) * defaultLen * Math.sin((90 + A - defaultABC) * Math.PI / 180);
+        var DY = endY + (endY > beginY ? 1 : -1) * defaultLen * Math.cos((90 + A - defaultABC) * Math.PI / 180);
+        return [{BX:beginX, BY:beginY, EX:endX, EY:endY, type:"line"},
             {BX:endX, BY:endY, EX:CX, EY:CY, type:"line"},
             {BX:endX, BY:endY, EX:DX, EY:DY, type:"line"}];
     }
@@ -47,13 +37,8 @@ function ClibArrow(beginX, beginY, endX, endY, style){
 (function(){
     var Temp = function(){};
     Temp.prototype = ClibBaseGraph.prototype;
-    ClibLine.prototype = new Temp();
+    ClibArrow.prototype = new Temp();
 })();
-
-
-
-
-
 
 function ClibGriphics (obj) {
     return {
