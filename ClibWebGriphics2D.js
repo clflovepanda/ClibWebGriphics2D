@@ -24,7 +24,8 @@ function ClibArrow(beginX, beginY, endX, endY, style){
     this.name = "arrow";
     this.vector = function() {
         var defaultABC = 45, defaultLen = 20;
-        var A = Math.atan2(Math.abs(endY - beginY), Math.abs(endX - beginX)) / Math.PI * 180;//夹角A
+        //夹角A
+        var A = Math.atan2(Math.abs(endY - beginY), Math.abs(endX - beginX)) / Math.PI * 180;
         var CX = endX + (endX > beginX ? -1 : 1) * defaultLen * Math.sin((90 - A - defaultABC) * Math.PI / 180);
         var CY = endY + (endY > beginY ? -1 : 1) * defaultLen * Math.cos((90 - A - defaultABC) * Math.PI / 180);
         var DX = endX + (endX > beginX ? -1 : 1) * defaultLen * Math.sin((90 + A - defaultABC) * Math.PI / 180);
