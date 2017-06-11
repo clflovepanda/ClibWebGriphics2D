@@ -30,8 +30,8 @@ function ClibArrow(beginX, beginY, endX, endY, style){
         var A = Math.atan2(Math.abs(endY - beginY), Math.abs(endX - beginX)) / Math.PI * 180;
         var CBK = 90 - A - defaultABC;
         var DBL = 180 - 2 * defaultABC - CBK;
-        var lenX = 20 * Math.sin(CBK);
-        var lenY = 20 * Math.cos(CBK);
+        var lenX = 20 * Math.sin(CBK * Math.PI / 180);
+        var lenY = 20 * Math.cos(CBK * Math.PI / 180);
         var CX = endX - lenX;
         var CY = endY - lenY;
         var lenDL = 20 * Math.sin(DBL * Math.PI / 180);
