@@ -2,33 +2,46 @@
  * Created by changlifeng on 17/5/27.
  */
 
-var ClibBaseGraphType = {
-    LINE : "line",
-    DASH_LINE : "dash_line",
-    CIRCLE : "circle",
-    FILL_CIRCLE : "fill_circle",
-    STROKE_RECT : "stroke_rect",
-    FILL_RECT : "fill_rect"
-}
-
-function ClibBaseGraph (type) {
-    this.type = type || ClibBaseGraphType.LINE;
+function ClibBaseGraph (name) {
+    this.name = "base graph" || name;
     this.baseX = 0;
     this.baseY = 0;
+    this.vector = function(){};
 }
 //
 //ClibBaseGraph.prototype.get = function() {
 //};
 
 function ClibLine(){
-    ClibBaseGraph.call(ClibBaseGraphType.LINE);
-    this.type = ClibBaseGraphType.LINE;
+    ClibBaseGraph.call("line");
+    this.name = "line";
 }
 (function(){
     var Temp = function(){};
     Temp.prototype = ClibBaseGraph.prototype;
     ClibLine.prototype = new Temp();
 })();
+
+function ClibArrow(beginX, beginY, endX, endY, style){
+    ClibBaseGraph.call("arrow");
+    this.name = "arrow";
+    this.vector = function() {
+        var defaultABC = 45;
+        var A = Math.atan2(Math.abs(endY - beginY), Math.abs(endX - beginX)) / Math.PI * 180;
+        var CBK = 90 - A - defaultABC;
+        var lenX = 20 * Math.cos(CBK);
+        var lenY = 20 * Math.sin(CBK);
+        var CX = endX - lenX;
+        var CY = endY - lenY;
+        return [{BX:beginX, BY:beginY, EX:endX, EY:endY,type:"line"}, {BX:endX, BY:endY, EX:CX, EY:CY,type:"line"}];
+    }
+}
+(function(){
+    var Temp = function(){};
+    Temp.prototype = ClibBaseGraph.prototype;
+    ClibLine.prototype = new Temp();
+})();
+
 
 
 
@@ -158,6 +171,16 @@ function ClibWebPainter(canvasId) {
             style.borderColor = "#000";
             style.fillStyle = "#000";
             this.analysisStyle(style);
+        },
+
+        paintGraph : function (graph) {
+            var temp = graph.vector();
+            for (var i = 0 ; i < temp.length ; i ++) {
+                if (temp[i].type == "line") {
+                    this.moveTo(temp[i].BX, temp[i].BY);
+                    this.drawLine(temp[i].EX, temp[i].EY);
+                }
+            }
         }
 
     }
