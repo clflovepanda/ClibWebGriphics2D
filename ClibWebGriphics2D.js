@@ -1,6 +1,54 @@
 /**
  * Created by changlifeng on 17/5/27.
  */
+
+var ClibBaseGraphType = {
+    LINE : "line",
+    DASH_LINE : "dash_line",
+    CIRCLE : "circle",
+    FILL_CIRCLE : "fill_circle",
+    STROKE_RECT : "stroke_rect",
+    FILL_RECT : "fill_rect"
+}
+
+function ClibBaseGraph (type) {
+    this.type = type || ClibBaseGraphType.LINE;
+    this.baseX = 0;
+    this.baseY = 0;
+}
+//
+//ClibBaseGraph.prototype.get = function() {
+//};
+
+function ClibLine(){
+    ClibBaseGraph.call(ClibBaseGraphType.LINE);
+    this.type = ClibBaseGraphType.LINE;
+}
+(function(){
+    var Temp = function(){};
+    Temp.prototype = ClibBaseGraph.prototype;
+    ClibLine.prototype = new Temp();
+})();
+
+
+
+
+
+function ClibGriphics (obj) {
+    return {
+        X : obj.X,
+        Y : obj.Y,
+        griphics : obj.griphics,
+        overflow : obj.overflow
+    }
+}
+
+function ClibWebGriphics2DRenderingEngine (canvasId) {
+    return {
+        painter : new ClibWebPainter(canvasId),
+    }
+}
+
 function ClibWebPainter(canvasId) {
     return {
         ctx : document.getElementById(canvasId).getContext("2d"),
